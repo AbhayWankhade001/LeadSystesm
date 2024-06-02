@@ -1,0 +1,4 @@
+{
+    "ignore": ["progress.json", "*.csv"]
+  }
+  
