@@ -42,6 +42,14 @@ cron.schedule('0 0 * * *', async () => {
     console.log('processEmails complete.');
 });
 
+// Add the simple Hello World API endpoint
+app.get('/', (req, res) => {
+    res.send('Hello World');
+  });
+  app.get('/users', (req,res)=>{
+    res.status(201).json("its working finilla😍😍😍😍")
+  })
+  
 // Connect to MongoDB
 connectToMongoDB()
   .then(() => {
