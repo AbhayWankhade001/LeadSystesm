@@ -1,26 +1,58 @@
 const express = require('express');
 const scrapeLinkedInLinks = require('./FindClientsFunction');
 const scrapeLinkedInPosts = require('./ClientDetialsExtract');
+const getEmailsFromClientDetails = require('./LeadReachout/getEmailsFromClientDetails');
 const connectToMongoDB = require('./Connect');
+const processEmails = require('./LeadReachout/ProcessEmails');
 const cron = require('node-cron');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Function to run scrapeLinkedInLinks()
+async function runScrapeLinkedInLinks() {
+  console.log('Starting scraping LinkedIn links...');
+  await scrapeLinkedInLinks();
+  console.log('Scraping LinkedIn links completed.');
+  // After completion of scrapeLinkedInLinks, start scrapeLinkedInPosts
+  await runScrapeLinkedInPosts();
+}
+
+// Function to run scrapeLinkedInPosts()
+async function runScrapeLinkedInPosts() {
+  console.log('Starting scraping LinkedIn posts...');
+  await scrapeLinkedInPosts();
+  console.log('Scraping LinkedIn posts completed.');
+  // After completion of scrapeLinkedInPosts, start getEmailsFromClientDetails
+  await runGetEmailsFromClientDetails();
+}
+
+// Function to run getEmailsFromClientDetails()
+async function runGetEmailsFromClientDetails() {
+  console.log('Starting extracting emails from client details...');
+  await getEmailsFromClientDetails();
+  console.log('Extracting emails from client details completed.');
+  // After completion of getEmailsFromClientDetails, start processEmails
+  await runProcessEmails();
+}
+
+cron.schedule('0 0 * * *', async () => {
+    console.log('Running processEmails...');
+    await processEmails();
+    console.log('processEmails complete.');
+});
 
 // Connect to MongoDB
 connectToMongoDB()
   .then(() => {
     console.log('Connected to MongoDB');
 
-    // Start the scraping process
-    console.log('Starting scraping process...');
-    // scrapeLinkedInLinks();
-   scrapeLinkedInPosts();
+    // Start the initial scraping process when server starts
+    runScrapeLinkedInLinks();
 
     // Schedule the scraping function to run every 3 hours
     cron.schedule('0 */3 * * *', async () => {
-      console.log('Starting scraping process...');
-      await scrapeLinkedInLinks();
+      runScrapeLinkedInLinks();
     });
 
     // Start the server
