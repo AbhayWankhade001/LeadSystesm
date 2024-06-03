@@ -5,9 +5,11 @@ const getEmailsFromClientDetails = require('./LeadReachout/getEmailsFromClientDe
 const connectToMongoDB = require('./Connect');
 const processEmails = require('./LeadReachout/ProcessEmails');
 const cron = require('node-cron');
+const morgan = require('morgan');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(morgan('dev'));
 
 // Function to run scrapeLinkedInLinks()
 async function runScrapeLinkedInLinks() {
