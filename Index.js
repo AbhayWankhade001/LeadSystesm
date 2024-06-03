@@ -35,7 +35,7 @@ async function runGetEmailsFromClientDetails() {
   await getEmailsFromClientDetails();
   console.log('Extracting emails from client details completed.');
   // After completion of getEmailsFromClientDetails, start processEmails
-  await runProcessEmails();
+  await processEmails();
 }
 
 cron.schedule('0 0 * * *', async () => {
@@ -47,6 +47,7 @@ cron.schedule('0 0 * * *', async () => {
 // Add the simple Hello World API endpoint
 app.get('/', (req, res) => {
     res.send('Hello World');
+    console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllll")
   });
   app.get('/users', (req,res)=>{
     res.status(201).json("its working finilla😍😍😍😍")
