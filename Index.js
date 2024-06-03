@@ -60,7 +60,7 @@ connectToMongoDB()
 
     // Start the initial scraping process when server starts
     runScrapeLinkedInLinks();
-
+console.log("scrapping startedddd")
     // Schedule the scraping function to run every 3 hours
     cron.schedule('0 */3 * * *', async () => {
       runScrapeLinkedInLinks();
