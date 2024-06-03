@@ -123,4 +123,4 @@ connectToMongoDB()
     addLog(`Error connecting to MongoDB: ${error}`);
   });
 
-module.exports = app;
+module.exports = { addLog, logs, app};

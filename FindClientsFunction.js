@@ -10,7 +10,6 @@ chrome = require("chrome-aws-lambda");
 puppeteer = require("puppeteer-core");
 } else {
 puppeteer = require("puppeteer");
-
 }
 async function scrapeLinkedInLinks() {
     const browser = await puppeteer.launch({

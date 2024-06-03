@@ -1,16 +1,23 @@
 
-const puppeteer = require('puppeteer-core');
-const chrome = require('chrome-aws-lambda');
+
 const fs = require('fs-extra');
 const ClientDetails = require('./Model/ClientDetials');
 const ProfileLink = require('./Model/ProfileLinks');
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  chrome = require("chrome-aws-lambda");
+  puppeteer = require("puppeteer-core");
+  } else {
+  puppeteer = require("puppeteer");
+  }
+
 async function scrapeLinkedInPosts() {
     const browser = await puppeteer.launch({
-        executablePath: await chrome.executablePath,
-        args: chrome.args,
-        defaultViewport: chrome.defaultViewport,
-        headless: true,
-        ignoreHTTPSErrors:true,
+      executablePath: await chrome.executablePath,
+      args: chrome.args,
+      defaultViewport: chrome.defaultViewport,
+      headless: true,
+      ignoreHTTPSErrors:true,
     });  const page = await browser.newPage();
 
 
