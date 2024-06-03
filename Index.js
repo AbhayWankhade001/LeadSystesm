@@ -48,7 +48,7 @@ cron.schedule('0 0 * * *', async () => {
 app.get('/', (req, res) => {
     res.send('Hello World');
     console.log("heeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllll")
-    await scrapeLinkedInLinks();
+     scrapeLinkedInLinks();
   });
   app.get('/users', (req,res)=>{
     res.status(201).json("its working finilla😍😍😍😍")
