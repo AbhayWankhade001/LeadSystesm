@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const connectToMongoDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://abhaywankhade200401:9529370446@aW@cluster0.b9gdvkb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect("mongodb+srv://abhaywankhade2004:VlnlMg9hXAFdxALH@cluster252.mr5b7dh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster252", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+   
     });
     console.log("Connected to MongoDB");
   } catch (err) {
@@ -13,3 +14,4 @@ const connectToMongoDB = async () => {
 };
 
 module.exports = connectToMongoDB;
+

@@ -1,11 +1,26 @@
-const puppeteer = require("puppeteer");
+
 const keywordsArray = require("./Keywords");
 const { findPreviousDayData, updateScrapingStatus } = require('./updateScrapingStatus');
 const ProfileLink = require('./Model/ProfileLinks'); // Import the ProfileLink model
+let chrome = {};
+let puppeteer;
 
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+chrome = require("chrome-aws-lambda");
+puppeteer = require("puppeteer-core");
+} else {
+puppeteer = require("puppeteer");
+
+}
 async function scrapeLinkedInLinks() {
-    const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
+    const browser = await puppeteer.launch({
+        executablePath: await chrome.executablePath,
+        args: chrome.args,
+        defaultViewport: chrome.defaultViewport,
+        headless: true,
+        ignoreHTTPSErrors:true,
+    });   
+     const page = await browser.newPage();
   
     // Connect to MongoDB
 
